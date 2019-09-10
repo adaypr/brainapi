@@ -1,6 +1,5 @@
 #!flask/bin/python
 from flask import Flask, jsonify, request, json
-from twilio.twiml.messaging_response import MessagingResponse
 
 app = Flask(__name__)
 
