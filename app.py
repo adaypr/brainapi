@@ -27,7 +27,7 @@ def create_task():
     #print('Texto: ' + request.form['Body'])
     #print('From: ' + request.form['From'])
     #print('To: ' + request.form['To'])
-    print(request.json)
+    print(request.args)
     return jsonify({'request': request.json}), 201
 
 if __name__ == '__main__':
