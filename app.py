@@ -1,5 +1,6 @@
 #!flask/bin/python
 from flask import Flask, jsonify, request, json
+from twilio.twiml.messaging_response import MessagingResponse
 
 app = Flask(__name__)
 
@@ -24,7 +25,7 @@ def get_tasks():
 	
 @app.route('/todo/api/v1.0/tasks', methods=['POST'])
 def create_task():
-    print(json.dumps(request.json))
+    print(request.form['Body'])
     return jsonify({'request': request.json}), 201
 
 if __name__ == '__main__':
