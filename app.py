@@ -1,35 +1,31 @@
 #!flask/bin/python
 from flask import Flask, jsonify, request, json
+from detect_intent_texts import detect_intent_texts
+import uuid
+from twilio.rest import Client
+from sendWhatsapp import send_WhatsApp
 
 app = Flask(__name__)
 
-tasks = [
-    {
-        'id': 1,
-        'title': u'Buy groceries',
-        'description': u'Milk, Cheese, Pizza, Fruit, Tylenol', 
-        'done': False
-    },
-    {
-        'id': 2,
-        'title': u'Learn Python',
-        'description': u'Need to find a good Python tutorial on the web', 
-        'done': False
-    }
-]
-
 @app.route('/todo/api/v1.0/tasks', methods=['GET'])
 def get_tasks():
-    return jsonify({'tasks': tasks})
-	
+    return jsonify({'tasks': 'Hola'})
+    
 @app.route('/todo/api/v1.0/tasks', methods=['POST'])
 def create_task():
     print('Texto: ' + request.form['Body'])
     print('From: ' + request.form['From'])
     print('To: ' + request.form['To'])    
-    print(request.form)   
+    #print(request.form)   
+    
+    #Envia Datos DialogFlow
+    fulfillment_text = detect_intent_texts("chatbotapiintegration-hvlbfm", request.form['SmsMessageSid'], [request.form['Body']], "en-US")
+    print('Texto: ' + fulfillment_text)
+    
+    #Envia Respuesta por Whatsapp
+    send_WhatsApp(request.form['From'], request.form['To'], fulfillment_text)
+    
     return jsonify({'request': request.form}), 201
 
 if __name__ == '__main__':
     app.run(debug=True)
-	
