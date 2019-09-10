@@ -24,12 +24,11 @@ def get_tasks():
 	
 @app.route('/todo/api/v1.0/tasks', methods=['POST'])
 def create_task():
-    #print('Texto: ' + request.form['Body'])
-    #print('From: ' + request.form['From'])
-    #print('To: ' + request.form['To'])
-    print(request.args)
-    print(request.form)    
-    return jsonify({'request': request.json}), 201
+    print('Texto: ' + request.form['Body'])
+    print('From: ' + request.form['From'])
+    print('To: ' + request.form['To'])    
+    #print(request.form)   
+    return jsonify({'request': request.form}), 201
 
 if __name__ == '__main__':
     app.run(debug=True)
