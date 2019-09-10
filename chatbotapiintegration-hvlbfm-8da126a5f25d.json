@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "chatbotapiintegration-hvlbfm",
+  "private_key_id": "8da126a5f25dc39090c2d8c25b31001ead221b66",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC7r+436Qfbb9A6\nUsGzJ3cYYuwGbv8oW8+PDfbwWhrcd0dhmQGqbPCRRSkkWMzYMZa1xkGkHFIKnPe0\nIg277VE3gSRhj5euhOfweT8Q4HXfiU8dyNf07iiyR10/J5y2InrJP+LtHd8wku44\nBRq0aEBce0nPhdX8OP717Uvkq+b4Td9bUmrIIWggbuVTMNHSyU8yfBEVV1qctevU\nc5BJr9r4n1d9OfZtmORWFwa3Mwfj7kT/QtMDnBiOvsxwrEFGxJW5rlVySL55ijh0\nsmAa7PukdvoOmHfgTkBWOJwf7LB5GqEnnCCvv4ZsKvVp3Hn+94QbRMjJsZxs/lyg\nbrR4hEH9AgMBAAECggEAKs6kCx17vMliWUMRyc5JBAdf5NHBIY/bJboeJdCvSrRr\n0+9FaX0CW2fGS/Ny+SZKRPhMdWU+Mwx9FJklv8SPXxT12siY5GWMzxSgVTWUvODA\n6j6qPsNpBcxwEJz0ybfQgIExPTqwcpA4hA9p+VbDwzQdcBcK6MWJJUczpZqtidk4\n3tZ3J0CAxl+r8CcWI+A3IJruC9qZqDyLDufziz3nqsQZOZ4LaxEpIavG5RBTsh6m\nu1CpVZylHpu7VzypBUybmtuzh6OrukYuI71EIZRG6MIkpq5CqcWeQoKme5Xg6vvc\n3By6FergLc0W3nZvWozD3dnTkLHv76yMdZ2WWqYSQQKBgQDoC/Obgl01V58x9Zh9\nrS853CQEUJ+TaETxTp8F3HvQhQ8ZvtQ+K0e/xovi5J0cS6aC3qlgmfzNiSr6SUG/\n7LyrOhcwnADfxe6dlmLCSqEeGF1T4gmo5auxsFjBrMbClZbHVo2J+hCFZquXTvwL\nAMYVNMaN+UKQXrGhJB0PxLkVIQKBgQDPD70+9cG7T7FfZZe9ywNefyWpKezRrjmn\nlFhJvG6OMedu0y0Fgbfj+HikXn018T9B6wmqnhB0Ao6ftURk57M1ncVT5SbaI2dC\nSnv6AkPKWQTpDERjM2ND6e21eCsrgQpxZ5kw47h5LcHxwtubZNkUFaOrgcVudHOf\n5oDLHy/1XQKBgCSjnndzghwmFbDhwo41hjtwkw9LW6b+08P2Ug2u3q3yFIxQIVsf\noliZlQTibBxHpacMWVozdkNN4UdbwdH4I2I17ety9oBe1Gp1kGp1NjN2TWYtTrEo\nco+/9IPAMDIRRJl9BSRAI9OsfnOJuSpTmPNIPgG01dnN2eZDuYL/4OmBAoGAInt6\nhpuisbDp1vsyM/c1Dm2aNfu3ZovfKhs4QL9SofeJlRkx7DLYDuz4Gldp/qu4Xx/n\nMjS0hL1QRySGyU8Utx8ZF4mX2MgAkDebQd1SsMX2XWEfmm2aYFr6rTff6JTKymv4\nRP4HYJbQL5TFwbEfvYqFATDRUj2ua7iVRj5hXDkCgYEApMJGuadsIEL3wj/JI6DZ\nNWqCoSFM11knDZMOp9JRctcL7jmJdE11lk+BDdO9moSMK8fpfcSu6Gp08w8QR1u5\nTCDu1g+RFFJiIhZYG8drqOSVXuvxQDUcxKWC7vDrm2VHXCNJlivPJLM1rybJLpqC\nhUjdNkDfMBJ7J5gY0ektG9U=\n-----END PRIVATE KEY-----\n",
+  "client_email": "chatbotapiintegration@chatbotapiintegration-hvlbfm.iam.gserviceaccount.com",
+  "client_id": "106720736380081174428",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/chatbotapiintegration%40chatbotapiintegration-hvlbfm.iam.gserviceaccount.com"
+}
