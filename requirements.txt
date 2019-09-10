@@ -2,3 +2,5 @@ Flask
 Flask-RESTful
 requests
 gunicorn
+dialogflow
+twilio
