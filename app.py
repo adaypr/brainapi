@@ -24,7 +24,7 @@ def get_tasks():
 	
 @app.route('/todo/api/v1.0/tasks', methods=['POST'])
 def create_task():
-    print(jsonify({'request': request.json}))
+    print(request)
     return jsonify({'request': request.json}), 201
 
 if __name__ == '__main__':
