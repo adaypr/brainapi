@@ -20,7 +20,7 @@ def create_task():
     #print(request.form)   
     
     #Envia Datos DialogFlow
-    fulfillment_text = detect_intent_texts("chatbotapiintegration-hvlbfm", request.form['SmsMessageSid'], [request.form['Body']], "en-US")
+    fulfillment_text = detect_intent_texts("chatbotapiintegration-hvlbfm", request.form['From'], [request.form['Body']], "en-US")
     print('Texto: ' + fulfillment_text)
     
     #Envia Respuesta por Whatsapp
