@@ -27,7 +27,7 @@ def salesforce_Autentication():
     r = requests.post(url, params=params)
     return json.loads(r.text)['access_token']
 
-def salesforce_LiveChatTranscript(text, authtoken):
+def salesforce_LiveChatTranscript(text, leadPhone,  authtoken):
     url = 'https://eu25.salesforce.com/services/apexrest/LiveChatTranscript/'
     
     data = {
@@ -48,7 +48,8 @@ def salesforce_LiveChatTranscript(text, authtoken):
     'Status': 'Completed',
     'UserAgent': 'Chatbot',
     'VisitorMessageCount': '2',
-    'VisitorNetwork': 'Elephant Talk Network Systems'
+    'VisitorNetwork': 'Elephant Talk Network Systems',
+    'leadPhone': leadPhone
     }
     
     hed = {'Authorization': 'Bearer ' + authtoken}
