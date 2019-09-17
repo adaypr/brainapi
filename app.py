@@ -20,15 +20,21 @@ def create_task():
     #print(request.form)   
     
     #Envia Datos DialogFlow
-    fulfillment_text = detect_intent_texts("chatbotapiintegration-hvlbfm", request.form['From'], [request.form['Body']], "en-US")
-    print('Texto: ' + fulfillment_text)
+    output_dialogflow = detect_intent_texts("chatbotapiintegration-hvlbfm", request.form['From'], [request.form['Body']], "en-US")
+    print('Texto: ' + output_dialogflow['fulfillment_text'])
+    print('Accion: ' + output_dialogflow['action'])
     
     #Envia Respuesta por Whatsapp
-    send_WhatsApp(request.form['From'], request.form['To'], fulfillment_text)
+    media_url = ''
+    if (output_dialogflow['action'] == 'room.reservation.yes'): 
+        media_url = 'http://fireworks.my/v4/wp-content/uploads/2017/08/Untitled6.jpg'
+    send_WhatsApp(request.form['From'], request.form['To'], output_dialogflow['fulfillment_text'],media_url)
+    
+    
     
     #Envia Pregunta y Respuesta a Salesforce    
     text1 = '<p align="left">' + 'Lead(' + request.form['From'] + '): ' + request.form['Body'] + '</p>'
-    text2 = '<p align="right">' + 'Chatbot: ' + fulfillment_text + '</p>'
+    text2 = '<p align="right">' + 'Chatbot: ' + output_dialogflow['fulfillment_text'] + '</p>'
     authtoken = salesforce_Autentication()
     result = salesforce_LiveChatTranscript(text1 + text2, request.form['From'].replace('whatsapp:+34',''), authtoken)
     print('Resultado: ' + result)
