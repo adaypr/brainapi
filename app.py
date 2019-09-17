@@ -33,8 +33,8 @@ def create_task():
     
     
     #Envia Pregunta y Respuesta a Salesforce    
-    text1 = '<p align="left">' + 'Lead(' + request.form['From'] + '): ' + request.form['Body'] + '</p>'
-    text2 = '<p align="right">' + 'Chatbot: ' + output_dialogflow['fulfillment_text'] + '</p>'
+    text1 = '<p style="color:red;" align="left">' + 'Lead(' + request.form['From'] + '): ' + request.form['Body'] + '</p>'
+    text2 = '<p style="color:blue;" align="right">' + 'Chatbot: ' + output_dialogflow['fulfillment_text'] + '</p>'
     authtoken = salesforce_Autentication()
     result = salesforce_LiveChatTranscript(text1 + text2, request.form['From'].replace('whatsapp:+34',''), authtoken)
     print('Resultado: ' + result)
