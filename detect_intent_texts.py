@@ -29,6 +29,7 @@ Examples:
 
 import argparse
 import uuid
+import json
 
 
 # [START dialogflow_detect_intent_text]
@@ -60,7 +61,14 @@ def detect_intent_texts(project_id, session_id, texts, language_code):
             response.query_result.intent_detection_confidence))
         print('Fulfillment text: {}\n'.format(
             response.query_result.fulfillment_text))
-        return(response.query_result.fulfillment_text)
+        print('Action: {}\n'.format(
+            response.query_result.action))
+        output = {}
+        output['fulfillment_text'] = response.query_result.fulfillment_text
+        output['intent'] = response.query_result.intent.display_name
+        output['intent_confidence'] = response.query_result.intent_detection_confidence
+        output['action'] = response.query_result.action
+        return(output)
 # [END dialogflow_detect_intent_text]
 
 
