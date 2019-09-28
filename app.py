@@ -91,7 +91,7 @@ def run_process(data):
         channelColor = "red"
         
     #Envia Pregunta y Respuesta a Salesforce
-    text1 = '<p style="color:' + channelColor + 'red;" align="left">' + 'Lead(' + data['from'] + '): ' + data['text'] + '</p>'
+    text1 = '<p style="color:' + channelColor + ';" align="left">' + 'Lead(' + data['from'] + '): ' + data['text'] + '</p>'
     text2 = '<p style="color:blue;" align="right">' + 'Chatbot: ' + output_dialogflow['fulfillment_text'] + '</p>'
     authtoken = salesforce_Autentication()
     result = salesforce_LiveChatTranscript(text1 + text2, data['from'].replace('whatsapp:+34',''), authtoken)
