@@ -87,7 +87,7 @@ def run_process(data):
         if (output_dialogflow['action'] == 'room.reservation.yes'): 
             media_url = 'http://fireworks.my/v4/wp-content/uploads/2017/08/Untitled6.jpg'
         #send to Whatsapp the response
-        send_WhatsApp(request.form['From'], request.form['To'], output_dialogflow['fulfillment_text'],media_url)
+        send_WhatsApp(data['from'], data['to'], output_dialogflow['fulfillment_text'],media_url)
         channelColor = "red"
         
     #Envia Pregunta y Respuesta a Salesforce
