@@ -32,22 +32,13 @@ def receive_message():
             messaging = event['messaging']
             for message in messaging:
                 if message.get('message'):
-                    #Facebook Messenger ID for user so we know where to send response back to
-                    recipient_id = message['sender']['id']
-                    data['from'] = recipient_id
+                    #Facebook Messenger ID for user so we know where to send response back to                    
+                    data['from'] = message['sender']['id']
                     data['to'] = message['recipient']['id']
                     if message['message'].get('text'):
                         data['text'] = message['message'].get('text')
-                        #response_sent_text = get_message()                        
-                        output_dialogflow = detect_intent_texts("chatbotapiintegration-hvlbfm", data['from'], [data['text']], "en-US")
-                        send_message(recipient_id, output_dialogflow['fulfillment_text'])
-                    #if user sends us a GIF, photo,video, or any other non-text item
-                    #if message['message'].get('attachments'):
-                    #    response_sent_nontext = get_message()
-                    #    send_message(recipient_id, response_sent_nontext)
-        print(json.dumps(data))
+                        run_process(data)                                               
     return "Message Processed"
-
 
 def verify_fb_token(token_sent):
     #take token sent by facebook and verify it matches the verify token you sent
@@ -55,13 +46,6 @@ def verify_fb_token(token_sent):
     if token_sent == VERIFY_TOKEN:
         return request.args.get("hub.challenge")
     return 'Invalid verification token'
-
-
-#chooses a random message to send to the user
-def get_message():
-    sample_responses = ["You are stunning!", "We're proud of you.", "Keep on being you!", "We're greatful to know you :)"]
-    # return selected item to the user
-    return random.choice(sample_responses)
 
 #uses PyMessenger to send response to user
 def send_message(recipient_id, response):
@@ -104,6 +88,13 @@ def create_task():
     print('Resultado: ' + result)
     
     return jsonify({'request': request.form}), 201
+
+def run_process(data):
+    if (data['channel'] == "facebookMessenger"):
+        output_dialogflow = detect_intent_texts("chatbotapiintegration-hvlbfm", data['from'], [data['text']], "en-US")
+        send_message(data['from'], output_dialogflow['fulfillment_text'])
+        print(json.dumps(data))    
+    return "ok"
 
 if __name__ == '__main__':
     app.run(debug=True)
