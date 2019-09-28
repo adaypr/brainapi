@@ -40,7 +40,7 @@ def receive_message():
                         data['text'] = message['message'].get('text')
                         #response_sent_text = get_message()                        
                         output_dialogflow = detect_intent_texts("chatbotapiintegration-hvlbfm", data['from'], [data['text']], "en-US")
-                        send_message(recipient_id, output_dialogflow)
+                        send_message(recipient_id, output_dialogflow['fulfillment_text'])
                     #if user sends us a GIF, photo,video, or any other non-text item
                     #if message['message'].get('attachments'):
                     #    response_sent_nontext = get_message()
