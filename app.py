@@ -72,9 +72,7 @@ def create_task():
 
 def run_process(data):
     if (data['channel'] == "facebookMessenger"):
-        #identify A Number to mantain the context
-        output_dialogflow = detect_intent_texts("chatbotapiintegration-hvlbfm", data['from'], ["channel=facebookMessenger"], "es-ES")
-        print(output_dialogflow['fulfillment_text'])
+
         #send to dialogflow
         output_dialogflow = detect_intent_texts("chatbotapiintegration-hvlbfm", data['from'], [data['text']], "en-US")
         #send to facebook messenger the response
