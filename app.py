@@ -66,21 +66,8 @@ def create_task():
     data['channel'] = "twillio"
     data['from'] = request.form['From']
     data['to'] = request.form['To']
-    data['text'] = request.form['Body']
-    
-    #Envia Datos DialogFlow
-    #output_dialogflow = detect_intent_texts("chatbotapiintegration-hvlbfm", request.form['From'], [request.form['Body']], "en-US")
-    #print('Texto: ' + output_dialogflow['fulfillment_text'])
-    #print('Accion: ' + output_dialogflow['action'])
-    
-    #Envia Respuesta por Whatsapp
-    
+    data['text'] = request.form['Body']    
     run_process(data)  
-    
-    
-    
-    
-    
     return "ok", 201
 
 def run_process(data):
@@ -89,6 +76,7 @@ def run_process(data):
         output_dialogflow = detect_intent_texts("chatbotapiintegration-hvlbfm", data['from'], [data['text']], "en-US")
         #send to facebook messenger the response
         send_facebookmessage(data['from'], output_dialogflow['fulfillment_text'])
+        channelColor = "green"
             
     elif (data['channel'] == "twillio"):
         #send to dialogflow
@@ -98,14 +86,16 @@ def run_process(data):
         media_url = ''
         if (output_dialogflow['action'] == 'room.reservation.yes'): 
             media_url = 'http://fireworks.my/v4/wp-content/uploads/2017/08/Untitled6.jpg'
+        #send to Whatsapp the response
         send_WhatsApp(request.form['From'], request.form['To'], output_dialogflow['fulfillment_text'],media_url)
+        channelColor = "red"
         
-        #Envia Pregunta y Respuesta a Salesforce    
-        text1 = '<p style="color:red;" align="left">' + 'Lead(' + request.form['From'] + '): ' + request.form['Body'] + '</p>'
-        text2 = '<p style="color:blue;" align="right">' + 'Chatbot: ' + output_dialogflow['fulfillment_text'] + '</p>'
-        authtoken = salesforce_Autentication()
-        result = salesforce_LiveChatTranscript(text1 + text2, request.form['From'].replace('whatsapp:+34',''), authtoken)
-        print('Resultado: ' + result)
+    #Envia Pregunta y Respuesta a Salesforce
+    text1 = '<p style="color:' + channelColor + 'red;" align="left">' + 'Lead(' + data['from'] + '): ' + data['text'] + '</p>'
+    text2 = '<p style="color:blue;" align="right">' + 'Chatbot: ' + output_dialogflow['fulfillment_text'] + '</p>'
+    authtoken = salesforce_Autentication()
+    result = salesforce_LiveChatTranscript(text1 + text2, data['from'].replace('whatsapp:+34',''), authtoken)
+    print('Resultado: ' + result)
     
     print(json.dumps(data))
     return "ok"
