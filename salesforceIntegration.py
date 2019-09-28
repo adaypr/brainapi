@@ -49,7 +49,8 @@ def salesforce_LiveChatTranscript(text, leadPhone,  authtoken):
     'UserAgent': 'Chatbot',
     'VisitorMessageCount': '2',
     'VisitorNetwork': 'Elephant Talk Network Systems',
-    'leadPhone': leadPhone
+    #'leadPhone': leadPhone
+    'leadPhone': "619316053"
     }
     
     hed = {'Authorization': 'Bearer ' + authtoken}
