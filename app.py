@@ -27,7 +27,6 @@ def receive_message():
         data = {}
         data['channel'] = "facebookMessenger"    
         output = request.get_json()
-        print(output)
         for event in output['entry']:
             messaging = event['messaging']
             for message in messaging:
@@ -48,7 +47,7 @@ def verify_fb_token(token_sent):
     return 'Invalid verification token'
 
 #uses PyMessenger to send response to user
-def send_message(recipient_id, response):
+def send_facebookmessage(recipient_id, response):
     #sends user the text message provided via input response parameter
     bot.send_text_message(recipient_id, response)
     return "success"
@@ -61,39 +60,54 @@ def get_tasks():
     return verify_fb_token(token_sent)
     
 @app.route('/todo/api/v1.0/tasks', methods=['POST'])
-def create_task():
-    print('Texto: ' + request.form['Body'])
-    print('From: ' + request.form['From'])
-    print('To: ' + request.form['To'])    
-    #print(request.form)   
+def create_task():    
+    
+    data = {}
+    data['channel'] = "twillio"
+    data['from'] = request.form['From']
+    data['to'] = request.form['To']
+    data['text'] = request.form['Body']
     
     #Envia Datos DialogFlow
-    output_dialogflow = detect_intent_texts("chatbotapiintegration-hvlbfm", request.form['From'], [request.form['Body']], "en-US")
-    print('Texto: ' + output_dialogflow['fulfillment_text'])
-    print('Accion: ' + output_dialogflow['action'])
+    #output_dialogflow = detect_intent_texts("chatbotapiintegration-hvlbfm", request.form['From'], [request.form['Body']], "en-US")
+    #print('Texto: ' + output_dialogflow['fulfillment_text'])
+    #print('Accion: ' + output_dialogflow['action'])
     
     #Envia Respuesta por Whatsapp
-    media_url = ''
-    if (output_dialogflow['action'] == 'room.reservation.yes'): 
-        media_url = 'http://fireworks.my/v4/wp-content/uploads/2017/08/Untitled6.jpg'
-    send_WhatsApp(request.form['From'], request.form['To'], output_dialogflow['fulfillment_text'],media_url)
+    
+    run_process(data)  
     
     
     
-    #Envia Pregunta y Respuesta a Salesforce    
-    text1 = '<p style="color:red;" align="left">' + 'Lead(' + request.form['From'] + '): ' + request.form['Body'] + '</p>'
-    text2 = '<p style="color:blue;" align="right">' + 'Chatbot: ' + output_dialogflow['fulfillment_text'] + '</p>'
-    authtoken = salesforce_Autentication()
-    result = salesforce_LiveChatTranscript(text1 + text2, request.form['From'].replace('whatsapp:+34',''), authtoken)
-    print('Resultado: ' + result)
     
-    return jsonify({'request': request.form}), 201
+    
+    return "ok", 201
 
 def run_process(data):
     if (data['channel'] == "facebookMessenger"):
+        #send to dialogflow
         output_dialogflow = detect_intent_texts("chatbotapiintegration-hvlbfm", data['from'], [data['text']], "en-US")
-        send_message(data['from'], output_dialogflow['fulfillment_text'])
-        print(json.dumps(data))    
+        #send to facebook messenger the response
+        send_facebookmessage(data['from'], output_dialogflow['fulfillment_text'])
+            
+    elif (data['channel'] == "twillio"):
+        #send to dialogflow
+        output_dialogflow = detect_intent_texts("chatbotapiintegration-hvlbfm", data['from'], [data['text']], "en-US")
+        
+        #if end process, send the media file
+        media_url = ''
+        if (output_dialogflow['action'] == 'room.reservation.yes'): 
+            media_url = 'http://fireworks.my/v4/wp-content/uploads/2017/08/Untitled6.jpg'
+        send_WhatsApp(request.form['From'], request.form['To'], output_dialogflow['fulfillment_text'],media_url)
+        
+        #Envia Pregunta y Respuesta a Salesforce    
+        text1 = '<p style="color:red;" align="left">' + 'Lead(' + request.form['From'] + '): ' + request.form['Body'] + '</p>'
+        text2 = '<p style="color:blue;" align="right">' + 'Chatbot: ' + output_dialogflow['fulfillment_text'] + '</p>'
+        authtoken = salesforce_Autentication()
+        result = salesforce_LiveChatTranscript(text1 + text2, request.form['From'].replace('whatsapp:+34',''), authtoken)
+        print('Resultado: ' + result)
+    
+    print(json.dumps(data))
     return "ok"
 
 if __name__ == '__main__':
