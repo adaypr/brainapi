@@ -27,6 +27,7 @@ def receive_message():
         data = {}
         data['channel'] = "facebookMessenger"    
         output = request.get_json()
+        print(output)
         for event in output['entry']:
             messaging = event['messaging']
             for message in messaging:
