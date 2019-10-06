@@ -14,6 +14,7 @@ app = Flask(__name__)
 #Facebook Auth
 ACCESS_TOKEN = 'EAAGcI6VZAygcBAOkMZAYafcgEbyqqvs9EuZB4kAfq2P6E90PcJ8ZAageO1TgfEEmSiZCPQA3ELWQILyUwXblGmcJwUT8KDm5IskHQmrpXa4Bv1srTsZBo3jUNLcRE7HNHtYCqv0gdCOtTftIb4FkmYIEGgCpoQsgsftKZAnzTylvxwi4YKKtz7jvDiw2sLWIkgZD'
 VERIFY_TOKEN = 'TESTINGTOKEN'
+DIALOGFLOW_LENGUAGE = 'es-ES'
 bot = Bot(ACCESS_TOKEN)
 @app.route("/facebookMessenger", methods=['GET', 'POST'])
 def receive_message():
@@ -75,14 +76,14 @@ def run_process(data):
     if (data['channel'] == "facebookMessenger"):
 
         #send to dialogflow
-        output_dialogflow = detect_intent_texts("chatbotapiintegration-hvlbfm", "whatsapp:+34619316053", [data['text']], "en-US")
+        output_dialogflow = detect_intent_texts("chatbotapiintegration-hvlbfm", "whatsapp:+34619316053", [data['text']], DIALOGFLOW_LENGUAGE)
         #send to facebook messenger the response
         send_facebookmessage(data['from'], output_dialogflow['fulfillment_text'])
         channelColor = "green"
             
     elif (data['channel'] == "twillio"):
         #send to dialogflow
-        output_dialogflow = detect_intent_texts("chatbotapiintegration-hvlbfm", data['from'], [data['text']], "en-US")
+        output_dialogflow = detect_intent_texts("chatbotapiintegration-hvlbfm", data['from'], [data['text']], DIALOGFLOW_LENGUAGE)
         
         #if end process, send the media file
         media_url = ''
