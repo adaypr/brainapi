@@ -58,7 +58,7 @@ def send_facebookmessage(recipient_id, response):
 # --------- Twillio Whatsapp ---------
 @app.route('/todo/api/v1.0/tasks', methods=['GET'])
 def get_tasks():
-    token_sent = request.args.get("hub.verify_token")
+    token_sent = request.args.get("data")
     return verify_fb_token(token_sent)
     
 @app.route('/todo/api/v1.0/tasks', methods=['POST'])
